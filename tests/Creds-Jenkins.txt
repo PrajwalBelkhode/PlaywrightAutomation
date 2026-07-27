@@ -1,0 +1,5 @@
+C:\ProgramData\Jenkins\.jenkins\secrets\initialAdminPassword
+d41e2acfea0b4573b680aa3dc2f09c4a
+
+Username: AdminPrajwal
+Password: AdminPraj@#JK0612
