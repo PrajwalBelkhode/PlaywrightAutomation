@@ -1,0 +1,47 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: 209.spec.ts >> Verify the title of the app.vwo.com
+- Location: tests\209.spec.ts:3:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(page).toHaveTitle(expected) failed
+
+Expected: "Login - VWO"
+Received: "Wingify - Application"
+
+Call log:
+  - Expect "toHaveTitle" with timeout 5000ms
+    9 × unexpected value "Wingify - Application"
+
+```
+
+```yaml
+- main "Setup content"
+- main "Application main content":
+  - img "Wingify ABTasty Logo - Loading"
+  - text: LOADING WINGIFY
+```
+
+# Test source
+
+```ts
+  1 | import {test, expect} from '@playwright/test';
+  2 | 
+  3 | test('Verify the title of the app.vwo.com', async ({page}) =>{
+  4 |     await page.goto("https://app.vwo.com");
+> 5 |     await expect(page).toHaveTitle("Login - VWO");
+    |                        ^ Error: expect(page).toHaveTitle(expected) failed
+  6 | });
+```
