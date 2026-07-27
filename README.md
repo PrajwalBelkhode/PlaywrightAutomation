@@ -13,9 +13,18 @@ Playwright/
 │       └── playwright.yml        # GitHub Actions CI pipeline
 ├── tests/
 │   ├── example.spec.ts           # Playwright docs — title & navigation tests
-│   ├── 209.spec.ts               # VWO login page title verification
-│   ├── 210_Test_Annotation.spec.ts  # Test annotations demo (skip, only, fail, etc.)
-│   └── 23_Apr_2026_Automation_cura.spec.ts  # CURA Healthcare login flow
+│   ├── 01_Basics/
+│   │   ├── 209.spec.ts           # VWO login page title verification
+│   │   └── 210_Test_Annotation.spec.ts  # Test annotations demo (skip, only, fail, etc.)
+│   ├── 23_Apr_2026_Automation_cura.spec.ts   # CURA Healthcare login flow
+│   ├── 25_Apr_2026_VWO_login.spec.ts         # VWO login with valid/invalid credentials
+│   ├── 28_Apr_2026_VWO_Free_Trial.spec.ts    # VWO free trial signup flow
+│   ├── Cura-Appointment.spec.ts              # Cura Healthcare appointment booking
+│   ├── Simforthings-dev-login.spec.ts        # Sample login flow for a dev site
+│   └── Allure-Reports/
+│       ├── AllureReport.spec.ts      # Allure reporting demo (VWO login)
+│       ├── SaveSession.spec.ts       # Session storage handling with Allure
+│       └── TestVWO.spec.ts           # Additional VWO test with Allure steps
 ├── playwright.config.ts          # Playwright configuration
 ├── tsconfig.json                 # TypeScript compiler options
 ├── package.json                  # Project metadata & dependencies
@@ -26,12 +35,14 @@ Playwright/
 
 ## 🛠️ Tech Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| [Playwright](https://playwright.dev/) | ^1.59.1 | Browser automation & testing framework |
-| [TypeScript](https://www.typescriptlang.org/) | ESNext (target) | Type-safe test authoring |
-| [Node.js](https://nodejs.org/) | LTS | Runtime environment |
-| [GitHub Actions](https://docs.github.com/en/actions) | — | Continuous Integration |
+| Technology          | Version        | Purpose                                 |
+|---------------------|----------------|-----------------------------------------|
+| [Playwright](https://playwright.dev/) | ^1.60.0        | Browser automation & testing framework |
+| [TypeScript](https://www.typescriptlang.org/) | ESNext (target) | Type‑safe test authoring |
+| [Node.js](https://nodejs.org/) | LTS            | Runtime environment                     |
+| [GitHub Actions](https://docs.github.com/en/actions) | — | Continuous Integration                     |
+| [Allure Playwright](https://www.npmjs.com/package/allure-playwright) | ^3.9.0 | Rich Allure reports (HTML & JSON) |
+| [Allure JS Commons](https://www.npmjs.com/package/allure-js-commons) | ^3.9.0 | Allure step/attachment helpers |
 
 ---
 
@@ -54,6 +65,9 @@ npm install
 
 # 3. Install Playwright browsers (Chromium, Firefox, WebKit)
 npx playwright install --with-deps
+
+# (Optional) Install Allure command line to generate reports locally
+npm i -g allure-commandline   # or use Scoop/Chocolatey/Homebrew
 ```
 
 ---
@@ -76,51 +90,46 @@ npx playwright test --ui
 # Run in debug mode (step through tests)
 npx playwright test --debug
 
-# Run with a specific project / browser
+# Run against a specific project/browser
 npx playwright test --project=chromium
+
+# Generate and serve an Allure report (after tests have created allure-results/)
+npx allure serve allure-results
 ```
 
 ---
 
 ## 📊 Test Reports
 
-This project uses Playwright's built-in **HTML reporter**.
-
+**HTML Report** – Built‑in Playwright reporter  
 ```bash
-# Open the HTML report after a test run
 npx playwright show-report
 ```
+Outputs to `playwright-report/` with screenshots, traces, and step‑by‑step details.
 
-Reports are generated in the `playwright-report/` directory and include screenshots, traces, and detailed step-by-step results.
+**Allure Report** – Generated via the `allure-playwright` reporter  
+After a test run, JSON results are placed in `allure-results/`.  
+View with: `npx allure serve allure-results`
+
+Both reports are uploaded as artifacts in the GitHub Actions workflow (see below).
 
 ---
 
 ## 🧪 Test Overview
 
-### `example.spec.ts`
-Starter tests from the Playwright scaffolding:
-- Verifies the Playwright docs page title
-- Clicks the "Get started" link and asserts the Installation heading
-
-### `209.spec.ts`
-- Navigates to [app.vwo.com](https://app.vwo.com) and asserts the login page title
-
-### `210_Test_Annotation.spec.ts`
-Demonstrates Playwright's **test annotation** API:
-| Annotation | What it does |
-|------------|-------------|
-| `test.skip()` | Unconditionally skip a test |
-| `test.only()` | Focus — run only this test |
-| `test.fail()` | Mark a test as expected to fail |
-| `test.slow()` | Triple the default timeout |
-| `test.skip(condition, reason)` | Conditionally skip at runtime |
-
-### `23_Apr_2026_Automation_cura.spec.ts`
-Full login flow on the [CURA Healthcare](https://katalon-demo-cura.herokuapp.com/) demo app:
-1. Click "Make Appointment"
-2. Fill username & password
-3. Submit login
-4. Assert redirect to the appointment page
+| Test File                                      | What it Demonstrates                                                                                     |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `example.spec.ts`                              | Basic navigation & title assertions from the Playwright docs                                             |
+| `01_Basics/209.spec.ts`                        | Verifies the login page title of [app.vwo.com](https://app.vwo.com)                                      |
+| `01_Basics/210_Test_Annotation.spec.ts`        | Showcases Playwright test annotations: `skip`, `only`, `fail`, `slow`, conditional `skip`               |
+| `23_Apr_2026_Automation_cura.spec.ts`          | Full login flow on the [CURA Healthcare demo](https://katalon-demo-cura.herokuapp.com/)                |
+| `25_Apr_2026_VWO_login.spec.ts`                | Valid & invalid login attempts on VWO with assertions                                                   |
+| `28_Apr_2026_VWO_Free_Trial.spec.ts`           | End‑to‑end free‑trial signup flow on VWO                                                                |
+| `Cura-Appointment.spec.ts`                     | Booking an appointment on the CURA demo site                                                            |
+| `Simforthings-dev-login.spec.ts`               | Sample login flow for a custom development site                                                         |
+| `Allure-Reports/AllureReport.spec.ts`          | Example of attaching Allure steps, attachments, and epic/feature/story tags                             |
+| `Allure-Reports/SaveSession.spec.ts`           | Demonstrates storing/retrieving session storage while logging Allure steps                              |
+| `Allure-Reports/TestVWO.spec.ts`               | Another VWO test illustrating Allure nesting and severity levels                                        |
 
 ---
 
@@ -128,57 +137,62 @@ Full login flow on the [CURA Healthcare](https://katalon-demo-cura.herokuapp.com
 
 Key settings from [`playwright.config.ts`](playwright.config.ts):
 
-| Setting | Value | Notes |
-|---------|-------|-------|
-| `testDir` | `./tests` | All spec files live here |
-| `fullyParallel` | `true` | Tests run in parallel for speed |
-| `reporter` | `html` | Rich HTML report after each run |
-| `trace` | `on-first-retry` | Captures traces on failure retries |
-| `retries` | `0` (local) / `2` (CI) | Auto-retry on CI only |
-| `workers` | `auto` (local) / `1` (CI) | Single worker on CI for stability |
-| Browser | Chromium | Desktop Chrome device profile |
+| Setting                | Value                              | Notes                                                            |
+|------------------------|------------------------------------|------------------------------------------------------------------|
+| `testDir`              | `./tests`                          | All spec files reside here                                       |
+| `fullyParallel`        | `true`                             | Tests run in parallel for speed                                  |
+| `forbidOnly`           | `!!process.env.CI`                 | Fails CI if `test.only` is left behind                           |
+| `retries`              | `process.env.CI ? 2 : 0`           | Auto‑retry on CI only                                            |
+| `workers`              | `process.env.CI ? 1 : undefined`   | Single worker on CI for stability; local uses all cores          |
+| `reporter`             | `[['html'], ['allure-playwright']]`| Dual reporting: HTML + Allure                                    |
+| `use.trace`            | `'on'`                             | Capture trace on every test (useful for debugging)               |
+| Projects               | Chromium (Desktop Chrome)          | Additional browsers (Firefox, WebKit, mobile) are commented out   |
 
 ---
 
 ## 🔄 CI/CD — GitHub Actions
 
-The project includes a pre-configured workflow at [`.github/workflows/playwright.yml`](.github/workflows/playwright.yml) that:
+The workflow (`.github/workflows/playwright.yml`) runs on every `push` and `pull_request` to `main`/`master`:
 
-1. **Triggers** on `push` and `pull_request` to `main` / `master`
-2. **Runs on** `ubuntu-latest` with Node.js LTS
-3. **Steps:**
-   - Checkout code
-   - Install Node.js dependencies (`npm ci`)
-   - Install Playwright browsers
-   - Execute the full test suite
-4. **Uploads** the HTML report as a build artifact (retained for 30 days)
+1. Checkout code  
+2. Setup Node.js LTS  
+3. Install dependencies (`npm ci`)  
+4. Install Playwright browsers  
+5. Execute the full test suite  
+6. Upload both **HTML** and **Allure** results as build artifacts (retained 30 days)
 
 ---
 
 ## 🔑 Key Playwright Concepts Covered
 
-- ✅ **Navigation** — `page.goto()`
-- ✅ **Assertions** — `toHaveTitle()`, `toHaveURL()`, `toBeVisible()`
-- ✅ **Locators** — `page.locator()`, `page.getByRole()`
-- ✅ **Actions** — `click()`, `fill()`
-- ✅ **Test Annotations** — `skip`, `only`, `fail`, `slow`
-- ✅ **HTML Reporting** — auto-generated after each run
-- ✅ **CI Integration** — GitHub Actions pipeline
+- ✅ **Navigation** — `page.goto()`  
+- ✅ **Assertions** — `toHaveTitle()`, `toHaveURL()`, `toBeVisible()`  
+- ✅ **Locators** — `page.locator()`, `page.getByRole()`  
+- ✅ **Actions** — `click()`, `fill()`  
+- ✅ **Test Annotations** — `skip`, `only`, `fail`, `slow`  
+- ✅ **HTML Reporting** — auto‑generated after each run  
+- ✅ **CI Integration** — GitHub Actions pipeline  
 
 ---
 
 ## 📚 Resources
 
-- [Playwright Documentation](https://playwright.dev/docs/intro)
-- [Writing Tests](https://playwright.dev/docs/writing-tests)
-- [Test Assertions](https://playwright.dev/docs/test-assertions)
-- [Locators Guide](https://playwright.dev/docs/locators)
-- [Test Annotations](https://playwright.dev/docs/test-annotations)
-- [CI/CD Integration](https://playwright.dev/docs/ci-intro)
-- [Trace Viewer](https://playwright.dev/docs/trace-viewer)
+- [Playwright Documentation](https://playwright.dev/docs/intro)  
+- [Writing Tests](https://playwright.dev/docs/writing-tests)  
+- [Test Assertions](https://playwright.dev/docs/test-assertions)  
+- [Locators Guide](https://playwright.dev/docs/locators)  
+- [Test Annotations](https://playwright.dev/docs/test-annotations)  
+- [Trace Viewer](https://playwright.dev/docs/trace-viewer)  
+- [CI/CD Integration](https://playwright.dev/docs/ci-intro)  
+- [Allure Report Documentation](https://allurereport.org/)  
+- [Allure Playwright Reporter](https://www.npmjs.com/package/allure-playwright)  
 
 ---
 
 ## 📄 License
 
 This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
+
+--- 
+
+*Feel free to open issues or pull requests if you have suggestions or find bugs!*
