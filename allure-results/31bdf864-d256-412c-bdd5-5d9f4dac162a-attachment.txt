@@ -1,2 +1,0 @@
-Page loaded with Google as referer
-URL:https://www.app.com/landing/
