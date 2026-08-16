@@ -1,0 +1,5 @@
+Home page - Make appointment:
+
+Login form:
+All actions completed ✅
+Test case result - PASS ✅
