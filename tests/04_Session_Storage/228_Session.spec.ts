@@ -10,7 +10,7 @@ async function saveSession() {
     await page.fill("#login-password", "UDH@aiqseo123");
     await page.click("#js-login-btn");
 
-    await context.storageState({ path: "./auth/user-session.json"});
+    await context.storageState({ path: "./user-session.json"});
     console.log("Session saved to user-session.json ✅");
     await browser.close();
 }
