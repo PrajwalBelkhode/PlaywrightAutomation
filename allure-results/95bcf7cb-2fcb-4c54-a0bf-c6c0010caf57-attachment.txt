@@ -1,0 +1,3 @@
+Open VWO app ✅
+Entered valid credentials ✅
+Clicked on Sign--in button

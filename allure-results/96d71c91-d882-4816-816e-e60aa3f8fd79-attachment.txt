@@ -1,0 +1,4 @@
+Open VWO app ✅
+Entered valid credentials ✅
+Clicked on Sign--in button
+Log in success. Opened dashboard page ✅

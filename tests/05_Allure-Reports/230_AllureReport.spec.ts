@@ -10,8 +10,8 @@ test ("Verify the VWO login", async({page}) => {
 
     console.log("Open VWO app ✅");
     await page.goto("https://app.vwo.com/#/login");
-    await page.fill("#login-username", "crubij1654@supermmw.online");
-    await page.fill("#login-password", "VwoAdmin@#123");
+    await page.fill("#login-username", "qrfcua18394@aiqseo.com");
+    await page.fill("#login-password", "UDH@aiqseo123");
 
     console.log("Entered valid credentials ✅");
 
@@ -23,7 +23,7 @@ test ("Verify the VWO login", async({page}) => {
     await page.waitForURL(/#\/(dashboard|home)/, {timeout: 10000});
     await page.waitForTimeout(2000);
     await expect(page).toHaveTitle("Dashboard");
-    await expect(page).toHaveURL("https://app.vwo.com/#/dashboard?accountId=1231016");
+    await expect(page).toHaveURL("https://app.wingify.com/#/dashboard?accountId=1275982");
 
     console.log("Log in success. Opened dashboard page ✅");
 });
