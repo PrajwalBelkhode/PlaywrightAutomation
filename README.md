@@ -1,6 +1,6 @@
 # 🎭 Playwright Automation Project
 
-An end-to-end test automation project built with [Playwright](https://playwright.dev/) and TypeScript — covering real-world web applications, core testing patterns, and CI/CD integration via GitHub Actions.
+An end-to-end test automation project built with [Playwright](https://playwright.dev/) and TypeScript — covering real-world web applications, core testing patterns, advanced selectors, session storage, and CI/CD integration via GitHub Actions.
 
 ---
 
@@ -12,19 +12,20 @@ Playwright/
 │   └── workflows/
 │       └── playwright.yml        # GitHub Actions CI pipeline
 ├── tests/
-│   ├── example.spec.ts           # Playwright docs — title & navigation tests
-│   ├── 01_Basics/
-│   │   ├── 209.spec.ts           # VWO login page title verification
-│   │   └── 210_Test_Annotation.spec.ts  # Test annotations demo (skip, only, fail, etc.)
-│   ├── 23_Apr_2026_Automation_cura.spec.ts   # CURA Healthcare login flow
-│   ├── 25_Apr_2026_VWO_login.spec.ts         # VWO login with valid/invalid credentials
-│   ├── 28_Apr_2026_VWO_Free_Trial.spec.ts    # VWO free trial signup flow
-│   ├── Cura-Appointment.spec.ts              # Cura Healthcare appointment booking
-│   ├── Simforthings-dev-login.spec.ts        # Sample login flow for a dev site
-│   └── Allure-Reports/
-│       ├── AllureReport.spec.ts      # Allure reporting demo (VWO login)
-│       ├── SaveSession.spec.ts       # Session storage handling with Allure
-│       └── TestVWO.spec.ts           # Additional VWO test with Allure steps
+│   ├── 01_Basics/                # Basic tests and test annotations
+│   ├── 02_First_Tests/           # Browser contexts, multiple pages, and context reuse
+│   │   └── Tasks/                # Tasks on shared contexts and multiple pages
+│   ├── 03_Locators_Commands/     # CSS, XPath, GetByRole, cookies, and sequential keypresses
+│   │   └── Tasks/                # Practice automation tasks (CURA & VWO)
+│   ├── 04_Session_Storage/       # Session storage capture and authentication reuse
+│   ├── 05_Allure-Reports/        # Rich Allure reports (HTML & JSON) with metadata steps
+│   │   └── Tasks/                # Bank box and bank automation tests
+│   ├── 23_Apr_2026_Automation_cura.spec.ts
+│   ├── 25_Apr_2026_VWO_login.spec.ts
+│   ├── 28_Apr_2026_VWO_Free_Trial.spec.ts
+│   ├── Cura-Appointment.spec.ts
+│   ├── Simforthings-dev-login.spec.ts
+│   └── example.spec.ts           # Playwright default starter spec
 ├── playwright.config.ts          # Playwright configuration
 ├── tsconfig.json                 # TypeScript compiler options
 ├── package.json                  # Project metadata & dependencies
@@ -117,19 +118,45 @@ Both reports are uploaded as artifacts in the GitHub Actions workflow (see below
 
 ## 🧪 Test Overview
 
-| Test File                                      | What it Demonstrates                                                                                     |
-|------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| `example.spec.ts`                              | Basic navigation & title assertions from the Playwright docs                                             |
-| `01_Basics/209.spec.ts`                        | Verifies the login page title of [app.vwo.com](https://app.vwo.com)                                      |
-| `01_Basics/210_Test_Annotation.spec.ts`        | Showcases Playwright test annotations: `skip`, `only`, `fail`, `slow`, conditional `skip`               |
-| `23_Apr_2026_Automation_cura.spec.ts`          | Full login flow on the [CURA Healthcare demo](https://katalon-demo-cura.herokuapp.com/)                |
-| `25_Apr_2026_VWO_login.spec.ts`                | Valid & invalid login attempts on VWO with assertions                                                   |
-| `28_Apr_2026_VWO_Free_Trial.spec.ts`           | End‑to‑end free‑trial signup flow on VWO                                                                |
-| `Cura-Appointment.spec.ts`                     | Booking an appointment on the CURA demo site                                                            |
-| `Simforthings-dev-login.spec.ts`               | Sample login flow for a custom development site                                                         |
-| `Allure-Reports/AllureReport.spec.ts`          | Example of attaching Allure steps, attachments, and epic/feature/story tags                             |
-| `Allure-Reports/SaveSession.spec.ts`           | Demonstrates storing/retrieving session storage while logging Allure steps                              |
-| `Allure-Reports/TestVWO.spec.ts`               | Another VWO test illustrating Allure nesting and severity levels                                        |
+| Test File / Directory | Description / Demonstrates |
+|----------------------|----------------------------|
+| **`tests/01_Basics/`** | Basic tests and annotations |
+| ├─ `209.spec.ts` | Title verification of VWO Login page |
+| └─ `210_Test_Annotation.spec.ts` | Test annotations: `skip`, `only`, `fail`, `slow` |
+| **`tests/02_First_Tests/`** | Browser context and multi-page scenarios |
+| ├─ `211_First_runnning_Test.spec.ts` | Basic browser startup and flow |
+| ├─ `212_Browser_Context_Pages.spec.ts` | Independent browser contexts |
+| ├─ `213_Multi_Context.spec.ts` | Multiple contexts within a single browser instance |
+| ├─ `214_Multiple_Page.spec.ts` | Managing multiple pages simultaneously |
+| ├─ `215_TEST_PW.spec.ts` | General Playwright test sandbox |
+| ├─ `216_Manual_context.spec.ts` | Manual page/context construction |
+| ├─ `217_Manual_context_options.spec.ts` | Context setup with custom viewports and options |
+| ├─ `218_Context_reuse.spec.ts` | Reusing context across page actions |
+| └─ `Tasks/` | Shared contexts, single context multiple pages practice |
+| **`tests/03_Locators_Commands/`** | Advanced locators and action commands |
+| ├─ `219_Commands.spec.ts` | Common interaction commands |
+| ├─ `220_GotoCommands.spec.ts` | Detailed navigation options and wait statuses |
+| ├─ `221_Referer_command.spec.ts` | Testing with custom HTTP referrer headers |
+| ├─ `222_Automation_app.vwo.com.spec.ts` | Full element interactions on VWO |
+| ├─ `223_XPath.spec.ts` | Querying elements using XPath expressions |
+| ├─ `224_GetByRole.spec.ts` | Accessible querying using ARIA roles |
+| ├─ `225_CSS_Locators.spec.ts` | Locating elements via standard CSS selectors |
+| ├─ `226_PressSequentially.spec.ts` | Real-time keystroke typing simulation |
+| ├─ `227_Cookies.spec.ts` | Reading and setting browser cookies |
+| └─ `Tasks/` | Automation tasks for CURA Healthcare and VWO SignUp |
+| **`tests/04_Session_Storage/`** | Authenticated state saving and reuse |
+| ├─ `228_Session.spec.ts` | Capturing and loading storage state |
+| └─ `229_VWO_Test.spec.ts` | VWO test utilizing saved session context |
+| **`tests/05_Allure-Reports/`** | Reporting and analytics configurations |
+| ├─ `230_AllureReport.spec.ts` | Allure annotations: Epics, Features, Stories, and Steps |
+| └─ `Tasks/` | End-to-end banking flow reports and bankbox assignments |
+| **`tests/` Root specs** | Legacy and root-level practice flows |
+| ├─ `23_Apr_2026_Automation_cura.spec.ts` | CURA login automation |
+| ├─ `25_Apr_2026_VWO_login.spec.ts` | VWO credential testing |
+| ├─ `28_Apr_2026_VWO_Free_Trial.spec.ts` | VWO sign up registration path |
+| ├─ `Cura-Appointment.spec.ts` | CURA Healthcare appointment flow |
+| ├─ `Simforthings-dev-login.spec.ts` | Custom login script |
+| └─ `example.spec.ts` | Playwright default starter assertions |
 
 ---
 
@@ -165,13 +192,15 @@ The workflow (`.github/workflows/playwright.yml`) runs on every `push` and `pull
 
 ## 🔑 Key Playwright Concepts Covered
 
-- ✅ **Navigation** — `page.goto()`  
+- ✅ **Navigation** — `page.goto()` with advanced referrers and status handling  
 - ✅ **Assertions** — `toHaveTitle()`, `toHaveURL()`, `toBeVisible()`  
-- ✅ **Locators** — `page.locator()`, `page.getByRole()`  
-- ✅ **Actions** — `click()`, `fill()`  
+- ✅ **Locators** — CSS, XPath, `page.locator()`, `page.getByRole()`  
+- ✅ **Actions** — `click()`, `fill()`, and `pressSequentially()` for keystroke typing  
 - ✅ **Test Annotations** — `skip`, `only`, `fail`, `slow`  
-- ✅ **HTML Reporting** — auto‑generated after each run  
-- ✅ **CI Integration** — GitHub Actions pipeline  
+- ✅ **Multi-Context & Pages** — Setting custom viewport sizes and handling multi-page browser states  
+- ✅ **Session State** — Saving and restoring browser cookie and storage state to skip login flows  
+- ✅ **Allure Reports** — Epic, feature, story grouping with detailed custom test steps  
+- ✅ **CI Integration** — Automated test suite pipeline via GitHub Actions  
 
 ---
 
