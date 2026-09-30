@@ -82,6 +82,18 @@ class CustomTTAReporter implements Reporter {
     private runningTests: Map<string, TestData> = new Map();
     private completedTestIds: Set<string> = new Set();
 
+    private consoleLogEnabled: boolean = true;
+
+    constructor() {
+        // Console logging always enabled
+    }
+
+    private log(...args: any[]): void {
+        if (this.consoleLogEnabled) {
+            console.log(...args);
+        }
+    }
+
     onBegin(config: FullConfig, suite: Suite): void {
         const now = new Date();
         this.runId = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
@@ -90,13 +102,13 @@ class CustomTTAReporter implements Reporter {
         this.startTime = new Date();
         const totalTests = suite.allTests().length;
         
-        console.log('\n╔════════════════════════════════════════════════════════════════╗');
-        console.log('║        🎭 TTA PLAYWRIGHT AUTOMATION - REAL-TIME REPORT         ║');
-        console.log('╠════════════════════════════════════════════════════════════════╣');
-        console.log(`║  📅 Started: ${this.startTime.toLocaleString().padEnd(47)}║`);
-        console.log(`║  📊 Total Tests: ${String(totalTests).padEnd(44)}║`);
-        console.log(`║  🌐 Environment: ${(process.env.TEST_ENV || 'UAT').padEnd(44)}║`);
-        console.log('╚════════════════════════════════════════════════════════════════╝\n');
+        this.log('\n╔════════════════════════════════════════════════════════════════╗');
+        this.log('║        🎭 TTA PLAYWRIGHT AUTOMATION - REAL-TIME REPORT         ║');
+        this.log('╠════════════════════════════════════════════════════════════════╣');
+        this.log(`║  📅 Started: ${this.startTime.toLocaleString().padEnd(47)}║`);
+        this.log(`║  📊 Total Tests: ${String(totalTests).padEnd(44)}║`);
+        this.log(`║  🌐 Environment: ${(process.env.TEST_ENV || 'UAT').padEnd(44)}║`);
+        this.log('╚════════════════════════════════════════════════════════════════╝\n');
 
         this.initializeLiveReport();
     }
@@ -107,7 +119,7 @@ class CustomTTAReporter implements Reporter {
             fs.mkdirSync(reportDir, { recursive: true });
         }
         this.updateReportRealTime();
-        console.log(`📡 Real-time report: ${this.outputFile}`);
+        this.log(`📡 Real-time report: ${this.outputFile}`);
     }
 
     onTestBegin(test: TestCase): void {
@@ -117,10 +129,10 @@ class CustomTTAReporter implements Reporter {
         this.testCounter++;
 
         const testFile = test.location.file.split('/').pop() || '';
-        console.log(`\n▶️  STARTING: ${test.title}`);
-        console.log(`   📁 File: ${testFile}`);
-        console.log(`   📍 Suite: ${test.parent.title}`);
-        console.log('   ─────────────────────────────────────────────────────');
+        this.log(`\n▶️  STARTING: ${test.title}`);
+        this.log(`   📁 File: ${testFile}`);
+        this.log(`   📍 Suite: ${test.parent.title}`);
+        this.log('   ─────────────────────────────────────────────────────');
 
         const describePath: string[] = [];
         let parent: { title: string; parent?: unknown } | undefined = test.parent;
@@ -149,7 +161,7 @@ class CustomTTAReporter implements Reporter {
 
     onStepBegin(_test: TestCase, _result: TestResult, step: TestStep): void {
         if (step.category === 'test.step') {
-            console.log(`   ⏳ ${step.title}...`);
+            this.log(`   ⏳ ${step.title}...`);
         }
     }
 
@@ -157,7 +169,7 @@ class CustomTTAReporter implements Reporter {
         if (step.category === 'test.step') {
             const duration = step.duration ? `(${step.duration}ms)` : '';
             const status = step.error ? '❌' : '✅';
-            console.log(`   ${status} ${step.title} ${duration}`);
+            this.log(`   ${status} ${step.title} ${duration}`);
 
             const testStartTime = this.testStartTimeMap.get(test.id) || Date.now();
             const stepCounter = this.testStepCounterMap.get(test.id) || 0;
@@ -215,12 +227,12 @@ class CustomTTAReporter implements Reporter {
 
         const testTime = this.formatDuration(result.duration);
 
-        console.log('   ─────────────────────────────────────────────────────');
-        console.log(`   ${statusIcon} RESULT: ${status.toUpperCase()} | Duration: ${testTime}`);
+        this.log('   ─────────────────────────────────────────────────────');
+        this.log(`   ${statusIcon} RESULT: ${status.toUpperCase()} | Duration: ${testTime}`);
         if (result.error) {
-            console.log(`   ⚠️  Error: ${result.error.message?.substring(0, 80)}...`);
+            this.log(`   ⚠️  Error: ${result.error.message?.substring(0, 80)}...`);
         }
-        console.log(`\n   📊 Running Total: ✅ ${this.suiteStats.passed} | ❌ ${this.suiteStats.failed} | ⏭️ ${this.suiteStats.skipped}`);
+        this.log(`\n   📊 Running Total: ✅ ${this.suiteStats.passed} | ❌ ${this.suiteStats.failed} | ⏭️ ${this.suiteStats.skipped}`);
 
         const currentTestSteps = this.testStepsMap.get(test.id) || [];
         this.associateLogsWithSteps(test, result, currentTestSteps);
@@ -406,21 +418,21 @@ class CustomTTAReporter implements Reporter {
             ? ((this.suiteStats.passed / this.suiteStats.total) * 100).toFixed(1)
             : '0';
 
-        console.log('\n╔════════════════════════════════════════════════════════════════╗');
-        console.log('║                    📊 FINAL TEST SUMMARY                        ║');
-        console.log('╠════════════════════════════════════════════════════════════════╣');
-        console.log(`║  ✅ Passed:  ${String(this.suiteStats.passed).padEnd(49)}║`);
-        console.log(`║  ❌ Failed:  ${String(this.suiteStats.failed).padEnd(49)}║`);
-        console.log(`║  ⏭️  Skipped: ${String(this.suiteStats.skipped).padEnd(49)}║`);
-        console.log(`║  📊 Total:   ${String(this.suiteStats.total).padEnd(49)}║`);
-        console.log('╠════════════════════════════════════════════════════════════════╣');
-        console.log(`║  ⏱️  Duration: ${duration.padEnd(47)}║`);
-        console.log(`║  📈 Pass Rate: ${(passRate + '%').padEnd(47)}║`);
-        console.log('╚════════════════════════════════════════════════════════════════╝');
+        this.log('\n╔════════════════════════════════════════════════════════════════╗');
+        this.log('║                    📊 FINAL TEST SUMMARY                        ║');
+        this.log('╠════════════════════════════════════════════════════════════════╣');
+        this.log(`║  ✅ Passed:  ${String(this.suiteStats.passed).padEnd(49)}║`);
+        this.log(`║  ❌ Failed:  ${String(this.suiteStats.failed).padEnd(49)}║`);
+        this.log(`║  ⏭️  Skipped: ${String(this.suiteStats.skipped).padEnd(49)}║`);
+        this.log(`║  📊 Total:   ${String(this.suiteStats.total).padEnd(49)}║`);
+        this.log('╠════════════════════════════════════════════════════════════════╣');
+        this.log(`║  ⏱️  Duration: ${duration.padEnd(47)}║`);
+        this.log(`║  📈 Pass Rate: ${(passRate + '%').padEnd(47)}║`);
+        this.log('╚════════════════════════════════════════════════════════════════╝');
 
-        console.log('\n📊 Generating TTA HTML Report...');
+        this.log('\n📊 Generating TTA HTML Report...');
         await this.generateReport();
-        console.log(`✅ Report generated: ${this.outputFile}`);
+        this.log(`✅ Report generated: ${this.outputFile}`);
     }
 
     private formatTime(date: Date): string {
@@ -454,8 +466,39 @@ class CustomTTAReporter implements Reporter {
     }
 
     private associateLogsWithSteps(_test: TestCase, result: TestResult, testSteps: StepData[]): void {
+        // If there are no steps but we have logs, create a default step to hold them
         if (testSteps.length === 0) {
-            return;
+            // Check if we have any logs to associate
+            const hasLogs = result.stdout && result.stdout.length > 0 &&
+                           Array.isArray(result.stdout) &&
+                           result.stdout.some(chunk => {
+                               if (typeof chunk === 'string') return chunk.trim().length > 0;
+                               if (Buffer.isBuffer(chunk)) return chunk.toString().trim().length > 0;
+                               return false;
+                           }) ||
+                           result.stderr && result.stderr.length > 0 &&
+                           Array.isArray(result.stderr) &&
+                           result.stderr.some(chunk => {
+                               if (typeof chunk === 'string') return chunk.trim().length > 0;
+                               if (Buffer.isBuffer(chunk)) return chunk.toString().trim().length > 0;
+                               return false;
+                           });
+
+            if (hasLogs) {
+                // Create a default step to hold the logs
+                const defaultStep: StepData = {
+                    title: 'Test Execution',
+                    category: 'test.step',
+                    duration: 0,
+                    status: 'passed',
+                    startTime: new Date().toLocaleTimeString(),
+                    consoleLogs: [],
+                    stepIndex: 0
+                };
+                testSteps.push(defaultStep);
+            } else {
+                return; // No steps and no logs, nothing to do
+            }
         }
 
         // Initialize consoleLogs array for all steps
@@ -576,6 +619,10 @@ class CustomTTAReporter implements Reporter {
                             step.consoleLogs!.push(unassignedLogs[logIdx++]);
                         }
                     }
+                }
+                // Assign any remaining logs to the first step
+                if (logIdx < unassignedLogs.length) {
+                    testSteps[0].consoleLogs!.push(...unassignedLogs.slice(logIdx));
                 }
             } else {
                 // All steps have some logs, add remaining to first step
