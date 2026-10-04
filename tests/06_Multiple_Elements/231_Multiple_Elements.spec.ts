@@ -12,5 +12,11 @@ test.describe('Handling multiple elements', () => {
                 break;
             }
         }
+
+        //Traversing through all the elements
+        const rightPanelLinks = await page.locator('a.list-group-item').all();
+        for(const link of rightPanelLinks){
+            console.log(await link.getAttribute("href"));
+        }
     });
 });
