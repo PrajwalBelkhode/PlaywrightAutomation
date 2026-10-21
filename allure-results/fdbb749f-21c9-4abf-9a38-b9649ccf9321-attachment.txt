@@ -1,0 +1,8 @@
+{
+  "vehicleName": "Hyundai Verna",
+  "ownerName": "Prajwal Madan Belkhode",
+  "regNumber": "MH-31-DV-8919",
+  "vehicleType": "Sedan",
+  "year": "2027",
+  "notes": "Classy - comfortable and a good car"
+}
