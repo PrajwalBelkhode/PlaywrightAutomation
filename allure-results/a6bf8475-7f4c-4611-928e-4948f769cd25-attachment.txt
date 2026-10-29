@@ -1,0 +1,8 @@
+[
+  '🚖Taxi',
+  '🏨Hotel',
+  '🛡️Insurance',
+  '🍽️Meal',
+  '📶Wi-Fi',
+  '🎟️Activities'
+]
