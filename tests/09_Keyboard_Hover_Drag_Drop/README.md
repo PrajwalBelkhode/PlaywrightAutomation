@@ -7,7 +7,7 @@ This section contains Playwright exercises covering keyboard interactions, hover
 ## Test Files
 
 | # | File | Topic |
-|---|------|-------|
+| --- | ------ | ------- |
 | 242 | `242_Keyboard.spec.ts` | Keyboard key press events |
 | 244 | `244_Spicejet_Hover.spec.ts` | Hover menus & submenus |
 | 245 | `245_Drag_and_Drop.spec.ts` | Simple drag and drop |
@@ -36,6 +36,7 @@ Simulates keyboard key presses on a keycode detection page and captures screensh
 ### Exercise 244 — Hover (SpiceJet)
 
 **URLs:**
+
 - `https://www.spicejet.com/`
 - `https://app.thetestingacademy.com/playwright/widgets/hover-menu`
 
@@ -137,7 +138,7 @@ npx playwright test tests/09_Keyboard_Hover_Drag_Drop --debug
 ## Playwright API Summary
 
 | API | Purpose |
-|-----|---------|
+| ----- | --------- |
 | `page.keyboard.press()` | Simulate keyboard key presses |
 | `locator.hover()` | Hover over an element |
 | `locator.dragTo(target)` | Drag an element to a target element |
