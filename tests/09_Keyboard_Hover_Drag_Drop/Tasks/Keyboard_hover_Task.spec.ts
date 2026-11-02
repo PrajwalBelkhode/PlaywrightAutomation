@@ -7,5 +7,8 @@ test.describe('Keyboard and hover', () =>{
         await page.getByTestId('test-id-Activities').click();
         const output = await page.getByTestId('hover-output').innerText();
         console.log(output);
+
+        // Content validation
+        expect(output).toContain('Activities');
     });
 });
