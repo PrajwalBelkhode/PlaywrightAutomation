@@ -15,6 +15,24 @@ This directory contains automated end-to-end tests built with [Playwright](https
 
 ---
 
+## 📂 Section Directories
+
+| # | Directory | Topics Covered |
+|---|-----------|----------------|
+| 01 | [`01_Basics`](./01_Basics) | Playwright basics and fundamentals |
+| 02 | [`02_First_Tests`](./02_First_Tests) | Writing your first Playwright tests |
+| 03 | [`03_Locators_Commands`](./03_Locators_Commands) | Locator strategies and commands |
+| 04 | [`04_Session_Storage`](./04_Session_Storage) | Session and local storage handling |
+| 05 | [`05_Allure-Reports`](./05_Allure-Reports) | Allure reporting integration |
+| 06 | [`06_Multiple_Elements`](./06_Multiple_Elements) | Handling multiple elements |
+| 07 | [`07_WebTables`](./07_WebTables) | Web table interactions |
+| 08 | [`08_Frames_iFrames`](./08_Frames_iFrames) | Frames and iFrames handling |
+| 09 | [`09_Keyboard_Hover_Drag_Drop`](./09_Keyboard_Hover_Drag_Drop) | Keyboard events, hover, drag & drop, right-click |
+| 10 | [`10_JS_Alerts`](./10_JS_Alerts) | JavaScript alerts, confirms, and prompts |
+| 11 | [`11_Handle_SVG`](./11_Handle_SVG) | SVG element interaction and data extraction |
+
+---
+
 ## ⚙️ Configuration
 
 Tests are configured via [`playwright.config.ts`](../playwright.config.ts) at the project root. Key settings:
