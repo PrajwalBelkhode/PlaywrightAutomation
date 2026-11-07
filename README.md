@@ -1,10 +1,10 @@
 # 🎭 Playwright Automation Project
 
-> Last updated: 2026-10-12
+> Last updated: 2026-11-07
 
-An end-to-end test automation project built with [Playwright](https://playwright.dev/) and TypeScript — covering real-world web applications, core testing patterns, advanced selectors, session storage, web tables, custom select-boxes, and CI/CD integration via GitHub Actions.
+An end-to-end test automation project built with [Playwright](https://playwright.dev/) and TypeScript — covering real-world web applications, core testing patterns, advanced selectors, session storage, web tables, custom select-boxes, frames, keyboard/hover/drag-drop, JS alerts, SVG handling, and CI/CD integration via GitHub Actions.
 
-> **43 test specs** across **7 learning modules** + standalone practice flows
+> **56 test specs** across **11 learning modules** + standalone practice flows
 
 ---
 
@@ -30,6 +30,15 @@ Playwright/
 │   │   └── Tasks/                      # QA Profile form practice
 │   ├── 07_WebTables/                   # Web table parsing, dynamic tables, dropdowns, and select boxes
 │   │   └── readme.md
+│   ├── 08_Frames_iFrames/             # Frames, multi-frames, and nested iframes
+│   │   └── Tasks/                      # TTA nested iFrames task
+│   ├── 09_Keyboard_Hover_Drag_Drop/   # Keyboard events, hover, drag & drop, right-click
+│   │   ├── Tasks/                      # Keyboard & hover task
+│   │   └── README.md
+│   ├── 10_JS_Alerts/                  # JavaScript alerts, confirms, and prompts
+│   ├── 11_Handle_SVG/                 # SVG element interaction and data extraction
+│   │   ├── Tasks/                      # Flipkart SVG task
+│   │   └── README.md
 │   ├── 23_Apr_2026_Automation_cura.spec.ts
 │   ├── 25_Apr_2026_VWO_login.spec.ts
 │   ├── 28_Apr_2026_VWO_Free_Trial.spec.ts
@@ -225,6 +234,42 @@ The [Custom TTA Reporter](utils/CustomTTAReporter.ts) (authored by Pramod Dutta 
 | `237_Advanced_Select_Box.spec.ts` | React-Select single, multi, creatable, grouped, and async select boxes |
 | `238_Advanced_Select_Box_v2.spec.ts` | React-Select v2 — searchable, multi with removal, creatable tags, grouped & async |
 
+### Module 08 — Frames & iFrames
+
+| File | Description |
+|---|---|
+| `239_iFrames.spec.ts` | Fills out a vehicle registration form inside a single iframe and submits it |
+| `240_Multi_Frames.spec.ts` | Interacts with a multi-frame page: reads header text, counts frames, clicks links in side frame |
+| `241_Nested_Iframes.spec.ts` | Navigates three levels of nested iframes, filling text inputs in each nested frame |
+| **Tasks/** | |
+| `TTA_Nested-IFrames.spec.ts` | Navigates three levels of nested iframes on TTA's site, fills inputs and logs header |
+
+### Module 09 — Keyboard, Hover, Drag & Drop
+
+| File | Description |
+|---|---|
+| `242_Keyboard.spec.ts` | Simulates keyboard key presses (`A`, `ArrowLeft`, `Shift+O`) with screenshots |
+| `244_Spicejet_Hover.spec.ts` | Hovers over navigation menu items to reveal and interact with submenus |
+| `245_Drag_and_Drop.spec.ts` | Simple drag and drop between two columns with before/after assertions |
+| `246_Drag_and_Drop_advance_Kanban.spec.ts` | Advanced drag and drop across Kanban board columns with state snapshot |
+| `247_Right_Click.spec.ts` | Right-click context menu interaction — opens menu, extracts options, clicks one |
+| **Tasks/** | |
+| `Keyboard_hover_Task.spec.ts` | Hovers over a nav menu, clicks "Activities" sub-menu, and asserts output text |
+
+### Module 10 — JavaScript Alerts
+
+| File | Description |
+|---|---|
+| `243_JS_Alerts.spec.ts` | Handles JS dialogs (alert, confirm, prompt) using `page.on('dialog')`, verifies result messages |
+
+### Module 11 — Handle SVG
+
+| File | Description |
+|---|---|
+| `248_SVG.spec.ts` | Locates and clicks SVG elements (search icon), iterates product results and prints titles |
+| **Tasks/** | |
+| `Flipkart_SVG_Task.spec.ts` | SVG handling + sorting by price, extracting prices with regex, finding cheapest product |
+
 ### Root-Level Specs
 
 | File | Description |
@@ -275,8 +320,8 @@ The workflow ([`.github/workflows/playwright.yml`](.github/workflows/playwright.
 ## 🔑 Key Playwright Concepts Covered
 
 - ✅ **Navigation** — `page.goto()` with advanced referrers, wait-until strategies, and status handling
-- ✅ **Assertions** — `toHaveTitle()`, `toHaveURL()`, `toBeVisible()`
-- ✅ **Locators** — CSS, XPath, `page.locator()`, `page.getByRole()`, `page.getByTestId()`, `page.getByText()`
+- ✅ **Assertions** — `toHaveTitle()`, `toHaveURL()`, `toBeVisible()`, `toHaveText()`
+- ✅ **Locators** — CSS, XPath, `page.locator()`, `page.getByRole()`, `page.getByTestId()`, `page.getByText()`, `page.getByTitle()`
 - ✅ **Actions** — `click()`, `fill()`, `selectOption()`, `check()`, and `pressSequentially()` for keystroke typing
 - ✅ **Test Annotations** — `skip`, `only`, `fail`, `slow`, and conditional skipping
 - ✅ **Multi-Context & Pages** — Setting custom viewport sizes and handling multi-page browser states
@@ -285,6 +330,13 @@ The workflow ([`.github/workflows/playwright.yml`](.github/workflows/playwright.
 - ✅ **Web Tables** — Static & dynamic table parsing with XPath iteration, `following-sibling`, and `hasText` filtering
 - ✅ **Dropdowns & Select Boxes** — Native `<select>`, custom dropdowns, and React-Select components (single, multi, creatable, grouped, async)
 - ✅ **Cookies** — Reading and setting browser cookies programmatically
+- ✅ **Frames & iFrames** — Single frames, multi-frames, and deeply nested iframe navigation with `frameLocator()`
+- ✅ **Keyboard Events** — Simulating key presses, special keys, and modifier key combinations with `page.keyboard.press()`
+- ✅ **Hover Actions** — Hovering to reveal menus, extracting submenu items, and clicking hover-triggered elements
+- ✅ **Drag & Drop** — Simple element-to-element drag, advanced Kanban board multi-column drag operations
+- ✅ **Right-Click (Context Menu)** — Triggering context menus with `click({ button: 'right' })` and interacting with options
+- ✅ **JavaScript Dialogs** — Handling alert, confirm, and prompt dialogs using `page.on('dialog')` event listeners
+- ✅ **SVG Elements** — Locating and interacting with SVG elements, data extraction from search results
 - ✅ **Allure Reports** — Epic, feature, story grouping with detailed custom test steps
 - ✅ **Custom TTA Reporter** — Real-time HTML dashboard with step-level screenshots, videos, traces, and run history
 - ✅ **CI Integration** — Automated test suite pipeline via GitHub Actions
