@@ -1,0 +1,5 @@
+{
+  "id": "circle-blue",
+  "testid": "shape-circle-blue",
+  "ariaLabel": "Blue circle"
+}
