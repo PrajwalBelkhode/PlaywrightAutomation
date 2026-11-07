@@ -4,7 +4,7 @@
 
 An end-to-end test automation project built with [Playwright](https://playwright.dev/) and TypeScript — covering real-world web applications, core testing patterns, advanced selectors, session storage, web tables, custom select-boxes, frames, keyboard/hover/drag-drop, JS alerts, SVG handling, and CI/CD integration via GitHub Actions.
 
-> **56 test specs** across **11 learning modules** + standalone practice flows
+> **58 test specs** across **11 learning modules** + standalone practice flows
 
 ---
 
@@ -267,6 +267,8 @@ The [Custom TTA Reporter](utils/CustomTTAReporter.ts) (authored by Pramod Dutta 
 | File | Description |
 |---|---|
 | `248_SVG.spec.ts` | Locates and clicks SVG elements (search icon), iterates product results and prints titles |
+| `249_SVG_Practice.spec.ts` | Interacts with SVG shapes, bar charts, and star ratings on TTA widget page |
+| `250_Advance_SVG_Project.spec.ts` | Advanced SVG — extracts state names from an interactive India map and clicks a state |
 | **Tasks/** | |
 | `Flipkart_SVG_Task.spec.ts` | SVG handling + sorting by price, extracting prices with regex, finding cheapest product |
 
@@ -336,7 +338,7 @@ The workflow ([`.github/workflows/playwright.yml`](.github/workflows/playwright.
 - ✅ **Drag & Drop** — Simple element-to-element drag, advanced Kanban board multi-column drag operations
 - ✅ **Right-Click (Context Menu)** — Triggering context menus with `click({ button: 'right' })` and interacting with options
 - ✅ **JavaScript Dialogs** — Handling alert, confirm, and prompt dialogs using `page.on('dialog')` event listeners
-- ✅ **SVG Elements** — Locating and interacting with SVG elements, data extraction from search results
+- ✅ **SVG Elements** — Locating and interacting with SVG elements, XPath `name()` for SVG-namespaced selectors, interactive maps, shapes, charts, and star ratings
 - ✅ **Allure Reports** — Epic, feature, story grouping with detailed custom test steps
 - ✅ **Custom TTA Reporter** — Real-time HTML dashboard with step-level screenshots, videos, traces, and run history
 - ✅ **CI Integration** — Automated test suite pipeline via GitHub Actions
