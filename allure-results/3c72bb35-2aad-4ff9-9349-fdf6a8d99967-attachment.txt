@@ -1,5 +1,0 @@
-{
-  "clicked": "🎟️\nActivities",
-  "testId": "test-id-Activities",
-  "at": "7:40:23 AM"
-}
