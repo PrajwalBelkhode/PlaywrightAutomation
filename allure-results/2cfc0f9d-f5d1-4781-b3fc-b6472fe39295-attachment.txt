@@ -1,0 +1,5 @@
+{
+  "email": "student@thetestingacademy.com",
+  "passwordLength": 11,
+  "when": "8:01:47 AM"
+}
