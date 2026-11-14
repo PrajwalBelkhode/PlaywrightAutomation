@@ -1,38 +1,38 @@
-﻿Playwright training repo. Browser automation lab, not app code.
+﻿Playwright lab. Browser automation practice repo, not app code.
 
 Stack: Node.js, Playwright, TypeScript, Allure, GitHub Actions.
 
 Root:
-- playwright.config.ts: Playwright setup and reporters
-- package.json: deps and scripts
+- playwright.config.ts: runner config and report setup
+- package.json: deps and project metadata
 - tsconfig.json: TypeScript config
-- user-session.json: saved auth/session state
-- auth/: stored browser state
-- utils/: custom TTA reporter
-- .github/workflows/: CI pipeline
+- user-session.json: saved browser state
+- auth/: stored session auth files
+- utils/CustomTTAReporter.ts: custom dashboard reporter
+- .github/workflows/playwright.yml: CI pipeline
 
 Tests:
-- tests/: 12 learning modules + standalone practice specs
-- 01_Basics: basics and test annotations
-- 02_First_Tests: context, pages, multi-browser patterns
+- tests/: 12 learning modules + root practice specs
+- 01_Basics: basics, annotations, first runs
+- 02_First_Tests: browser contexts and pages
 - 03_Locators_Commands: CSS, XPath, roles, cookies, key presses
-- 04_Session_Storage: session/local storage and VWO login reuse
-- 05_Allure-Reports: allure reporting and step tracking
-- 06_Multiple_Elements: iterating lists and forms
-- 07_WebTables: tables, dropdowns, advanced select boxes
-- 08_Frames_iFrames: iframe handling
+- 04_Session_Storage: session/local storage and auth reuse
+- 05_Allure-Reports: Allure steps and reports
+- 06_Multiple_Elements: element loops, forms, lists
+- 07_WebTables: tables, dropdowns, select boxes
+- 08_Frames_iFrames: iframe work
 - 09_Keyboard_Hover_Drag_Drop: keyboard, hover, drag/drop, right click
 - 10_JS_Alerts: alert, confirm, prompt flows
-- 11_Handle_SVG: SVG interaction and map clicks
+- 11_Handle_SVG: SVG clicks and map selection
 - 12_Shadow_DOMs: shadow DOM access
 
 Root specs:
-- example.spec.ts: starter sample
-- Cura-Appointment.spec.ts: healthcare flow
-- VWO login and free trial specs: real app automation practice
+- example.spec.ts: starter flow
+- Cura-Appointment.spec.ts: healthcare app flow
+- VWO login and free trial specs: real-site automation
 - date-stamped specs: extra practice runs
 
-Reports and outputs:
+Outputs:
 - playwright-report/, allure-report/, allure-results/, tta-report/, test-results/
 
-Big picture: this repo teaches Playwright patterns with real sites, strong selectors, browser state reuse, and reporting.
+Big picture: repo teaches Playwright fundamentals with real websites, selectors, state reuse, and reporting.
