@@ -1,0 +1,22 @@
+Tests folder is a Playwright learning lab. Roughly 59 TS specs. Main focus: browser automation, locators, forms, frames, alerts, SVG, drag/drop, and web apps.
+
+- 01_Basics: basic Playwright setup and annotations.
+- 02_First_Tests: first test code, browser/page/context patterns.
+- 03_Locators_Commands: CSS, XPath, getByRole, goto, cookies, commands.
+- 04_Session_Storage: session/local storage and VWO auth flow.
+- 05_Allure-Reports: Allure reporting setup and example reports.
+- 06_Multiple_Elements: multi-element interactions and form tasks.
+- 07_WebTables: tables, dropdowns, advanced selection.
+- 08_Frames_iFrames: iframe and nested frame handling.
+- 09_Keyboard_Hover_Drag_Drop: keyboard, hover, drag/drop, right click.
+- 10_JS_Alerts: alert, confirm, prompt cases.
+- 11_Handle_SVG: SVG clicks, data reads, tasks.
+- 12_Shadow_DOMs: shadow DOM access.
+
+Root tests:
+- example.spec.ts: starter sample.
+- Cura-Appointment.spec.ts: healthcare app flow.
+- VWO login/free trial tests: real app automation.
+- 23/25/28 date-stamped specs: later practice runs.
+
+Big picture: this is not a production suite. It is a training repo for Playwright basics and real-world browser automation patterns.
