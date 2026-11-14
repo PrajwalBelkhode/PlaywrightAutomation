@@ -1,22 +1,38 @@
-Tests folder is a Playwright learning lab. Roughly 59 TS specs. Main focus: browser automation, locators, forms, frames, alerts, SVG, drag/drop, and web apps.
+﻿Playwright training repo. Browser automation lab, not app code.
 
-- 01_Basics: basic Playwright setup and annotations.
-- 02_First_Tests: first test code, browser/page/context patterns.
-- 03_Locators_Commands: CSS, XPath, getByRole, goto, cookies, commands.
-- 04_Session_Storage: session/local storage and VWO auth flow.
-- 05_Allure-Reports: Allure reporting setup and example reports.
-- 06_Multiple_Elements: multi-element interactions and form tasks.
-- 07_WebTables: tables, dropdowns, advanced selection.
-- 08_Frames_iFrames: iframe and nested frame handling.
-- 09_Keyboard_Hover_Drag_Drop: keyboard, hover, drag/drop, right click.
-- 10_JS_Alerts: alert, confirm, prompt cases.
-- 11_Handle_SVG: SVG clicks, data reads, tasks.
-- 12_Shadow_DOMs: shadow DOM access.
+Stack: Node.js, Playwright, TypeScript, Allure, GitHub Actions.
 
-Root tests:
-- example.spec.ts: starter sample.
-- Cura-Appointment.spec.ts: healthcare app flow.
-- VWO login/free trial tests: real app automation.
-- 23/25/28 date-stamped specs: later practice runs.
+Root:
+- playwright.config.ts: Playwright setup and reporters
+- package.json: deps and scripts
+- tsconfig.json: TypeScript config
+- user-session.json: saved auth/session state
+- auth/: stored browser state
+- utils/: custom TTA reporter
+- .github/workflows/: CI pipeline
 
-Big picture: this is not a production suite. It is a training repo for Playwright basics and real-world browser automation patterns.
+Tests:
+- tests/: 12 learning modules + standalone practice specs
+- 01_Basics: basics and test annotations
+- 02_First_Tests: context, pages, multi-browser patterns
+- 03_Locators_Commands: CSS, XPath, roles, cookies, key presses
+- 04_Session_Storage: session/local storage and VWO login reuse
+- 05_Allure-Reports: allure reporting and step tracking
+- 06_Multiple_Elements: iterating lists and forms
+- 07_WebTables: tables, dropdowns, advanced select boxes
+- 08_Frames_iFrames: iframe handling
+- 09_Keyboard_Hover_Drag_Drop: keyboard, hover, drag/drop, right click
+- 10_JS_Alerts: alert, confirm, prompt flows
+- 11_Handle_SVG: SVG interaction and map clicks
+- 12_Shadow_DOMs: shadow DOM access
+
+Root specs:
+- example.spec.ts: starter sample
+- Cura-Appointment.spec.ts: healthcare flow
+- VWO login and free trial specs: real app automation practice
+- date-stamped specs: extra practice runs
+
+Reports and outputs:
+- playwright-report/, allure-report/, allure-results/, tta-report/, test-results/
+
+Big picture: this repo teaches Playwright patterns with real sites, strong selectors, browser state reuse, and reporting.
