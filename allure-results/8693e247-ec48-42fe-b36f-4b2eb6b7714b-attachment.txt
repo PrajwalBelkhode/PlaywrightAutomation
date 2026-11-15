@@ -1,0 +1,2 @@
+File Path: D:\Playwright-course\Playwright\tests\13_File_Upload\testdata.txt
+File uploaded successful ✅
